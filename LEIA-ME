@@ -1,0 +1,23 @@
+Trabalho de OS
+
+Bem,a gente sabe que foi um fracasso de nossa parte, mas implemntamos o que conseguimos e encontramos pelos livros:/
+
+## Algoritimos que foram implementados:
+    FIFO
+    SJF
+    Round Robin
+    EDF
+
+### Desenvolvido por: Eduardo Borges e Pablo Lima
+
+### Linguagem de desenvolvimento: Javascript(ECMASCRIPT 6)
+
+## Acesso:
+    Para a acessar o software basta utilizar o navegador, e acessar o index.html na raiz do projeto.
+## Uso:
+    Para escalonar os processos, esta auto explicativo na tela mas em caso de duvidas aqui esta as instruçoes,
+    Para começar primeiramente deverá adicionar os processos que deseja escalonar no botão "Adicionar Processos",
+    após isso, adicione o numero do QUANTUM que será utilizado nos Algotitmos RR, e EDF, e então é so clicar no
+    botão "Começar" + Nome do Algoritmo para escalonar os processos de acordo com os mesmos.
+    Para Refazer existe um Botão chamado, LIMPAR que irá zerar todos os registros, permitindo a inserção de novos
+    processos.

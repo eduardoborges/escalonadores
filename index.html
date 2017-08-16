@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Escalonadores</title>
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap-theme.css">
+    <link type="text/css" rel="stylesheet" href="vendor/toastr/toastr.css"/>
+    <style>
+        .text-area {
+            width: 341px;
+            max-width: 100%;
+            min-width: 100%;
+            height: 150px;
+            min-height: 150px;
+            max-height: 150px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="text-center">Escalonadores<br>
+                <small>Eduardo Borges e Pablo Lima</small>
+            </h1>
+            <!-- logo avisando que essa merda ta uma bosta,
+            ngm vai saber que eu fiz isso, apaga essses comentarios pablo -->
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-offset-2 col-md-8">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Pid</th>
+                    <th>Tempo</th>
+                    <th>Chegada</th>
+                    <th>Deadline</th>
+                    <th>
+                        <button type="button" name="button" data-toggle="modal" data-target="#myModal"
+                                class="btn btn-success">Adicionar Processo
+                        </button>
+                        <button onclick="gerencia.limpar()" class="btn btn-danger">Limpar</button>
+
+                    </th>
+                </tr>
+                </thead>
+                <tbody id="listaDeProcessos">
+                    --
+                </tbody>
+            </table>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="sr-only" for="quantum">Quantum</label>
+                        <div class="form-group">
+                            <span>Quantum</span>
+                            <input type="number" class="form-control" id="quantum" placeholder="Defina o quantum aqui."
+                                   required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="sr-only" for="alpha">Alpha</label>
+                        <div class="form-group">
+                            <span>Alpha</span>
+                            <select class="form-control" name="alpha" id="alpha">
+                                <option value="50" selected>50</option>
+                                <option value="100">100</option>
+                                <option value="1000">1000</option>
+                                <option value="10000">10000</option>
+                                <option value="20000">20000</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>    
+
+            </div>
+            
+            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <div class="caption">
+                        <h4>Fifo (First In, First Out)</h4>
+                        <label for="fifoDescription"> Descrição do processo.
+                        <textarea name="fifoDescription" id="fifoDescription" width="100%" readonly
+                                  class="text-area form-control"></textarea>
+                        </label>
+                        <p>
+                            TurnAround: <b><span id="turnaroundFifo"></span></b>
+                        </p>
+                        <p>
+                        <form class="teste" onsubmit="gerencia.startFifo(event)">
+                            <button type="submit" class="btn btn-primary" id="btn-fifo">Começar Fifo</button>
+                        </form>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <div class="caption">
+                        <h4>SJF (Shortest job first)</h4>
+                        <label for="SJFDescription"> Descrição do processo.
+              <textarea name="sjfDescription" id="sjfDescription" width="100%" readonly
+                        class="text-area form-control"></textarea>
+                        </label>
+                        <p>
+                            TurnAround: <b><span id="turnaroundsjf"></span></b>
+                        </p>
+                        <p>
+                        <form class="teste" onsubmit="gerencia.startSJF(event)">
+                            <button type="submit" class="btn btn-primary" id="btn-sjf">Começar SJF</button>
+                        </form>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <div class="caption">
+                        <h4>RR (Round Robin)</h4>
+                        <label for="RRDescription"> Descrição do processo.
+              <textarea name="RRDescription" id="RRDescription" width="100%" readonly
+                        class="text-area form-control"></textarea>
+                        </label>
+                        <p>
+                            TurnAround: <b><span id="turnaroundRR"></span></b>
+                        </p>
+                        <p>
+                        <form class="teste" onsubmit="gerencia.startRR(event)">
+                            <button type="submit" class="btn btn-primary" id="btn-rr">Começar RoundRobin</button>
+                        </form>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <div class="caption">
+                        <h5 class="bold"><b>EDF (Earliest Deadline First)</b></h5>
+                        <label for="EdfDescription"> Descrição do processo.
+              <textarea name="EdfDescription" id="EdfDescription" readonly
+                        class="text-area form-control"></textarea>
+                        </label>
+                        <p>
+                            TurnAround: <b><span id="turnaroundEdf"></span></b>
+                        </p>
+                        <p>
+                        <form class="teste" onsubmit="gerencia.startEDF(event)">
+                            <button type="submit" class="btn btn-primary" id="btn-edf">Começar EDF</button>
+                        </form>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAIS -->
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Adicionar Processo</h4>
+            </div>
+            <form class="form-horizontal" onsubmit="gerencia.adiciona(event)">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="tempo" class="col-sm-2 control-label">Tempo</label>
+                        <div class="col-sm-9">
+                            <input type="number" autofocus class="form-control" name="tempo"
+                                   id="tempo" placeholder="Digite o tempo" min="1" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Chegada" class="col-sm-2 control-label">Chegada</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control"
+                                   name="chegada" id="chegada" placeholder="Digite a Chegada" required min="0">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Chegada" class="col-sm-2 control-label">Deadline</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control" name="deadline"
+                                   id="deadline" placeholder="Digite o Deadline" min="0" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+</body>
+<script type="application/javascript" src="vendor/bootstrap/js/jquery-3.1.0.js"></script>
+<script type="application/javascript" src="vendor/bootstrap/js/bootstrap.js"></script>
+<script type="application/javascript" src="src/Processo.js"></script>
+<script type="application/javascript" src="src/Escalonamento.js"></script>
+<script type="application/javascript" src="src/Gerenciador.js"></script>
+<script type="application/javascript" src="vendor/toastr/toastr.min.js"></script>
+
+<script>
+    let gerencia = new Gerenciador();
+</script>
+
+</html>
