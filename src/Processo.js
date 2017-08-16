@@ -12,7 +12,6 @@
  */
 class Processo {
 
-
 	constructor(nome, tempo, chegada = 0, deadLine = 0, pendente = false, naFila = false, estorou = false, tempoGasto = 0) {
 		this._nome = nome;
 		this._tempo = tempo;

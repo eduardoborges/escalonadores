@@ -1,13 +1,9 @@
 /*
 essa é a parte mais feia do código
 nao espere design patterns, boas praticas, e etc.
-eu tenho uma semana pra fazer esse trem, na vdd menos que isso
-e eu gosto de dormir mais de 5h sabe?
 
 então, aqui basicamente eu manipulo o DOM e intenraçoes
 da pagina, nada além de iniciar e adicionar processos e etc.
-
-o café acabou, me lasquei
 */
 
 class Gerenciador {
